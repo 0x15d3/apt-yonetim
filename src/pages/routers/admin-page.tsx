@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Layout, Menu } from 'antd';
 import { Link, Routes} from 'react-router-dom';
-import { DashboardOutlined, RobotOutlined, TeamOutlined } from '@ant-design/icons';
+import { DashboardOutlined, TeamOutlined } from '@ant-design/icons';
 
 function AdminPage() {
   const [isNarrow, setIsNarrow] = useState(false);
@@ -35,9 +35,6 @@ function AdminPage() {
           </Menu.Item>
           <Menu.Item key="user" icon={<TeamOutlined />}>
             <Link to={`/admin/users`}>Kullanıcılar</Link>
-          </Menu.Item>
-          <Menu.Item key="bot" icon={<RobotOutlined />}>
-            <Link to={`/admin/bots`}>Botlar</Link>
           </Menu.Item>
         </Menu>
       </Layout.Sider>
