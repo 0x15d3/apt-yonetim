@@ -1,7 +1,8 @@
 import { useState } from 'react';
 import { Layout, Menu } from 'antd';
-import { Link, Routes} from 'react-router-dom';
+import { Link, Route, Routes} from 'react-router-dom';
 import { DashboardOutlined, TeamOutlined } from '@ant-design/icons';
+import AdminHomePage from '../roles/admin/admin-home-page';
 
 function AdminPage() {
   const [isNarrow, setIsNarrow] = useState(false);
@@ -40,6 +41,7 @@ function AdminPage() {
       </Layout.Sider>
       <Layout.Content style={isNarrow ? {marginLeft: 0,padding: '8px',} : {marginLeft: '200px',padding: '24px',}}>
         <Routes>
+          <Route path="/admin" element={<AdminHomePage/>} />
         </Routes>
       </Layout.Content>
     </Layout>

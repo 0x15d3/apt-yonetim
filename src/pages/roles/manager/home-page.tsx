@@ -1,6 +1,6 @@
 import { CSSProperties,} from 'react';
 import { useParams } from 'react-router-dom';
-import SiteList from '../site/site-main';
+import SiteList from '../../site/site-main';
 
 const style: CSSProperties = {
   padding: '24px 0',

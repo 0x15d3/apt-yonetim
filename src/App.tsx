@@ -9,7 +9,8 @@ import LogoutPage from './pages/auth/logout-page';
 import AdminPage from './pages/routers/admin-page';
 import Header from './components/header/header';
 import Footer from './components/footer/footer';
-import HomePage from './pages/main/home-page';
+import HomePage from './pages/roles/manager/home-page';
+import HomePageUnAuthed from './pages/main/home-page-unauthed';
 
 function App() {
   const [isLoading, setIsLoading] = useState(true);
@@ -35,10 +36,21 @@ function App() {
                 <>
                   <Routes>
                   <Route path="/logout" element={<LogoutPage/>} />
-                  {userState.isAdmin ? [
+                  {userState.isAdmin ?? [
                     <Route key="admin" path="/admin/*" element={<AdminPage/>} />,
                     <Route key="home" path="/:uid?" element={<HomePage />} />,
-                  ] : <Route key="home" path="/" element={<HomePage />}/>}
+                    <Route key="manager" path="/manager" element={<AdminPage/>} />,
+                  ]}
+                  
+                  {userState.isMember ? [
+                    <Route key="home" path="/" element={<HomePage/>} />
+                  ] : [
+                    <Route key="home" path="/" element={<HomePageUnAuthed/>} />
+                  ]}
+
+                  {userState.isManager ?? [
+                    <Route key="manager" path="/" element={<AdminPage/>} />
+                  ]}
                 </Routes>
                 </>
               ) : (

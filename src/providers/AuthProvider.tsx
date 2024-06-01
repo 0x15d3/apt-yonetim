@@ -11,6 +11,8 @@ export interface UserState {
   emailVerified: boolean;
   refreshToken: string;
   isAdmin?: boolean;
+  isMember?: boolean;
+  isManager?: boolean;
   isUser?: boolean;
 }
 
@@ -70,6 +72,8 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         await userAuth.getIdToken(true);
         getIdTokenResult(userAuth).then(({ claims }) => {
           user.isAdmin = claims?.admin ? Boolean(claims?.admin) : false;
+          user.isManager = claims?.manager ? Boolean(claims?.manager) : false;
+          user.isMember = claims?.member ? Boolean(claims?.member) : false;
           user.isUser = Boolean(claims?.user);
           setUserState(user);
           setAuthPending(false);
