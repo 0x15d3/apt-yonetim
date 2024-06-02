@@ -11,6 +11,7 @@ import Header from './components/header/header';
 import Footer from './components/footer/footer';
 import HomePage from './pages/roles/manager/home-page';
 import HomePageUnAuthed from './pages/main/home-page-unauthed';
+import SitePage from './pages/routers/site-page';
 
 function App() {
   const [isLoading, setIsLoading] = useState(true);
@@ -31,36 +32,34 @@ function App() {
         <Layout style={{ minHeight: '100vh' }}>
         <Header />
           <Layout.Content style={{ margin: '64px 0' }}>
-            <AuthContext.Consumer>
-            {({ userState }) => userState ? (
-                <>
-                  <Routes>
-                  <Route path="/logout" element={<LogoutPage/>} />
-                  {userState.isAdmin ?? [
-                    <Route key="admin" path="/admin/*" element={<AdminPage/>} />,
-                    <Route key="home" path="/:uid?" element={<HomePage />} />,
-                    <Route key="manager" path="/manager" element={<AdminPage/>} />,
-                  ]}
-                  
-                  {userState.isMember ? [
-                    <Route key="home" path="/" element={<HomePage/>} />
-                  ] : [
-                    <Route key="home" path="/" element={<HomePageUnAuthed/>} />
-                  ]}
-
-                  {userState.isManager ?? [
-                    <Route key="manager" path="/" element={<AdminPage/>} />
-                  ]}
-                </Routes>
-                </>
-              ) : (
-                <Routes>
-                  <Route path="/*" element={<Navigate to="/"/>} />
-                  <Route path="/logout" element={<LogoutPage/>} />
-                  <Route path="/" element={<LoginPage/>} />
-                </Routes>
-              )}
-            </AuthContext.Consumer>
+          <AuthContext.Consumer>
+            {({ userState }) => (
+              <Routes>
+                {userState ? (
+                  <>
+                    {userState.isAdmin && [
+                      <Route key="home" path="/:uid?" element={<HomePage/>} />,
+                      <Route key="admin" path="/admin/*" element={<AdminPage />} />
+                    ]}
+                    {userState.isManager && [
+                      <Route key="home" path="/" element={<HomePage />} />,
+                      <Route path="/apt/:id/*" element={<SitePage/>} />
+                    ]}
+                    {!userState.isAdmin && !userState.isManager && (
+                      <Route key="home" path="/" element={userState.isMember ? <HomePage /> : <HomePageUnAuthed />} />
+                    )}
+                    <Route key="logout" path="/logout" element={<LogoutPage />} />
+                  </>
+                ) : (
+                  <>
+                    <Route path="/logout" element={<LogoutPage />} />
+                    <Route path="/*" element={<Navigate to="/" />} />
+                    <Route path="/" element={<LoginPage />} />
+                  </>
+                )}
+              </Routes>
+            )}
+          </AuthContext.Consumer>
           </Layout.Content>
           <Footer />
         </Layout>

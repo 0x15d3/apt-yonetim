@@ -1,6 +1,6 @@
 import { getAnalytic, getAuthService, getFirestoreService } from '.';
 import { logEvent } from 'firebase/analytics';
-import { collection, getDocs, DocumentData, QuerySnapshot, doc, query, where, addDoc, Timestamp, deleteDoc } from 'firebase/firestore';
+import { collection, getDocs, DocumentData, QuerySnapshot, doc, query, where, addDoc, Timestamp, deleteDoc, getDoc } from 'firebase/firestore';
 import firebase from 'firebase/compat/app';
 
 const SITE_COLLECTION_NAME = 'site';
@@ -77,3 +77,21 @@ export async function getSiteList(userId?: string): Promise<SiteEntity[]> {
         throw error;
     }
 }
+
+
+export async function getSiteById(id: string): Promise<SiteEntity> {
+    try {
+      const db = getFirestoreService();
+      const docRef = doc(db, SITE_COLLECTION_NAME, id);
+      const documentSnapshot = await getDoc(docRef);
+  
+      if (documentSnapshot.exists()) {
+        return { id, ...documentSnapshot.data() } as SiteEntity;
+      } else {
+        throw new Error(`Site with ID ${id} not found`);
+      }
+    } catch (error) {
+      console.error('Error fetching bot by ID:', error);
+      throw error;
+    }
+  }
