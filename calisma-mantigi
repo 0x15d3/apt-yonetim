@@ -1,0 +1,21 @@
+- Kullanıcı kaydolur.
+- Eğer site yöneticisi ise, bir admin tarafından yetkisi verilir.
+- Yönetici sitesindeki blokları ve dairelerini, site değilse apartmanındaki daireleri kaydeder.
+- Site sakinleri kaydolur.
+- Yönetici, site sakinlerini oldukları binaya ve daireye göre telefon numaralarını veya eposta adreslerini kullanarak kaydeder.
+
+
+**********
+
++ Yönetici
+ - Duyuru yapabilir.
+ - Aidat girişi yapabilir.
+ - Kapıcı, Temizlik Görevlisi ve Güvenlik ekleyebilir.
+ - Her dairenin olduğu bir listeyi görebilir
+ - Dairelere bağlı kişileri görebilir daireye bağlı kişi ekleyebilir.
+ - ...
+
++ Site Sakini
+ - Duyuruları görebilir.
+ - Yapılan aidat girişlerini görebilir
+ - ...

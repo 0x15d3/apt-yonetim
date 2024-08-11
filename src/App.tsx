@@ -11,7 +11,7 @@ import Header from './components/header/header';
 import Footer from './components/footer/footer';
 import HomePage from './pages/roles/manager/home-page';
 import HomePageUnAuthed from './pages/main/home-page-unauthed';
-import SitePage from './pages/routers/site-page';
+import AptRouter from './pages/routers/apt-router';
 
 function App() {
   const [isLoading, setIsLoading] = useState(true);
@@ -43,7 +43,7 @@ function App() {
                     ]}
                     {userState.isManager && [
                       <Route key="home" path="/" element={<HomePage />} />,
-                      <Route path="/apt/:id/*" element={<SitePage/>} />
+                      <Route path="/apt/:id/*" element={<AptRouter/>} />
                     ]}
                     {!userState.isAdmin && !userState.isManager && (
                       <Route key="home" path="/" element={userState.isMember ? <HomePage /> : <HomePageUnAuthed />} />

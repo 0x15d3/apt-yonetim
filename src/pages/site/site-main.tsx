@@ -17,7 +17,7 @@ function SiteList({id}:ListPrompts){
   const userId= getAuthService().currentUser!.uid;
   useEffect(() => {
     if(!userId){
-        return 
+        return
     }
     const fetchSiteList = async () => {
         try {
@@ -44,7 +44,7 @@ function SiteList({id}:ListPrompts){
     <div style={isMobile ? {margin: '0 auto'}: {width: '960px',margin: '0 auto'}}>
       <PageHeader
         style={{padding: '16px 0 16px 0'}}
-        title={`Sitelerin`}
+        title={`Sitelerin | Apartmanların`}
         {...(!isLoading && sites.length > 0 ? { extra: <SiteCreationButton /> } : {})}
         //{...(userId ? { tags: <ImmersiveModeTag /> } : {})}
       />
@@ -73,7 +73,7 @@ function SiteList({id}:ListPrompts){
                 </Card>
               </Link>
             </List.Item>
-            
+
           )}
         />
       )}

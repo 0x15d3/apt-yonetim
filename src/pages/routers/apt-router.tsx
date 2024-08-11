@@ -1,13 +1,14 @@
 import { useEffect, useState } from 'react';
 import { Layout, Menu, Modal, Skeleton } from 'antd';
-import { Link, useParams, useLocation, Routes } from 'react-router-dom';
+import { Link, useParams, useLocation, Routes, Route } from 'react-router-dom';
 import { HomeOutlined, NotificationOutlined, SettingOutlined } from '@ant-design/icons';
 import { logEvent } from 'firebase/analytics';
 import { getAnalytic, getAuthService } from '../../firebase';
 import { SiteEntity, getSiteById } from '../../firebase/site';
+import AptPage from '../roles/manager/apt/apt-page';
 
 
-function SitePage() {
+function AptRouter() {
   const [isNarrow, setIsNarrow] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const { id } = useParams<{ id: string }>();
@@ -42,7 +43,7 @@ function SitePage() {
     };
 
     fetchSite();
-    
+
   }, [id]);
   return (
     <div>
@@ -78,12 +79,13 @@ function SitePage() {
         <Layout.Content style={isNarrow ? { marginLeft: 0, padding: '8px' } : { marginLeft: '200px', padding: '24px' }}>
           {isLoading ? <Skeleton active /> : (
           <Routes>
+            <Route path={`/`} element={<AptPage />} />
         </Routes>
-          )}  
+          )}
         </Layout.Content>
       </Layout>
     </div>
   );
 }
 
-export default SitePage;
+export default AptRouter;
